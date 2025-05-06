@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3fc414aa-46c8-4e92-a120-0e22205cfff9" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="ede973ad-cd1d-4433-ad64-976899f0d577" file="server-config.yaml" />
+	<flow name="simpleaddition-flow" doc:id="a2c044a3-706c-4e08-bc1b-4d4e83a27e3b" >
+		<http:listener doc:name="Listener" doc:id="9a5ac3ab-77dc-450d-874a-939f0bb26787" config-ref="HTTP_Listener_config" path="/add"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e1f8b2af-a157-4a71-a242-34cb854fc63c" message="-------Welcome to Simple Addtion ------"/>
+		<set-variable value="#[attributes.queryParams.num1]" doc:name="Setting num1" doc:id="c291c7ee-b15b-437d-95f5-c54540e41bd1" variableName="num1"/>
+		<set-variable value="#[attributes.queryParams.num2]" doc:name="Setting num2" doc:id="f028187d-e7de-4de1-8470-80728d6d20fc" variableName="num2"/>
+		<ee:transform doc:name="Transform Message" doc:id="9762d09d-bf85-43af-8f90-338a035ca550" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var sum = vars.num1 as Number + vars.num2 as Number
+---
+{
+	"response": p('log.message'),
+	"result":  sum
+}
+	]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="2e1aa3a3-db20-4c82-8313-9a29603564b2" message="------Successfully Completed arithmetic API ------"/>
+	</flow>
+	<flow name="simple-subtraction" doc:id="c04bdc69-3f9e-42f1-8c94-3bb1fa3854d8" >
+		<http:listener doc:name="Listener" doc:id="d94d5443-08fa-4fa2-9f61-dd366d02ba85" config-ref="HTTP_Listener_config" path="/sub"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8c1373a5-9e5c-4d5b-95a2-2aa4ed70ebed" message="--- Subtract flow---"/>
+		<set-variable value="#[attributes.queryParams.num1]" doc:name="Setting num1" doc:id="a64d342f-7b5a-4408-9fdc-7cccf57de25a" variableName="num1"/>
+		<set-variable value="#[attributes.queryParams.num2]" doc:name="Setting num2" doc:id="3c6a8aa1-f16f-4226-a5ca-aa1b953cbb4c" variableName="num2"/>
+		<ee:transform doc:name="Transform Message" doc:id="2967bfc3-10b4-4a08-a409-c72108ee4f89" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var result = vars.num1 as Number - vars.num2 as Number
+---
+
+{
+	"response": "Response from simple subtraction",
+	"result": result
+	}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="2898c2a8-1043-4f5e-adbc-304000a29447" />
+	</flow>
+</mule>
