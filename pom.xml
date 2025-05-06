@@ -31,10 +31,11 @@
 				<extensions>true</extensions>
 				<configuration>
 				    <cloudHubDeployment>
-				    <target>CLOUDHUB</target>
+				  
 				      <uri>https://anypoint.mulesoft.com</uri>
 				      <muleVersion>${deployment.app.runtime}</muleVersion>
 				      <username>${anypoint.username}</username>
+				      <password>${anypoint.username}</password>
 				      <applicationName>${project.artifactId}</applicationName>
 				      <environment>${env}</environment>
 				      <region>${deployment.region}</region>
