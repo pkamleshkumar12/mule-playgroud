@@ -1,55 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
-	<artifactId>mule-playground</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>mule-application</packaging>
+    <groupId>com.mycompany</groupId>
+    <artifactId>mule-playground</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>mule-application</packaging>
 
-	<name>mule-playground</name>
+    <name>mule-playground</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <app.runtime>4.9.0</app.runtime>
+        <mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
+        <!-- Add these if you want to avoid passing them on the command line -->
+       
+        <env>Sandbox</env>
+        <deployment.region>us-east-2</deployment.region>
+        <deployment.workers>1</deployment.workers>
+        <deployment.workerType>MICRO</deployment.workerType>
+        <http.port>8081</http.port>
+        
+    </properties>
 
-		<app.runtime>4.9.0</app.runtime>
-		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
-	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.2.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-				    <cloudHubDeployment>
-				      <uri>https://anypoint.mulesoft.com</uri>
-				      <muleVersion>${deployment.app.runtime}</muleVersion>
-				      <username>${anypoint.username}</username>
-				      <password>${anypoint.password}</password>
-				      <applicationName>${project.artifactId}</applicationName>
-				      <environment>${env}</environment>
-				      <region>${deployment.region}</region>
-				      <workers>${deployment.workers}</workers>
-				      <workerType>${deployment.workerType}</workerType>
-				      <objectStoreV2>true</objectStoreV2>
-				      <properties>
-				        <http.port>${http.port</http.port>
-				        <mule.env>${env}</mule.env>
-				      </properties>
-				    </cloudHubDeployment>
-				  </configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>mule-maven-plugin</artifactId>
+                <version>${mule.maven.plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <cloudHub2Deployment>
+                        <applicationName>${project.artifactId}</applicationName>
+                        <environment>${env}</environment>
+                        <region>${deployment.region}</region>
+                        <workers>${deployment.workers}</workers>
+                        <workerType>${deployment.workerType}</workerType>
+                        <runtimeVersion>${app.runtime}</runtimeVersion>
+                        <objectStoreV2>true</objectStoreV2>
+                        <properties>
+                            <http.port>${http.port}</http.port>
+                            <mule.env>${env}</mule.env>
+                        </properties>
+                    </cloudHub2Deployment>
+                    <anypointPlatform>
+                        <username>${anypoint.username}</username>
+                        <password>${anypoint.password}</password>
+                    </anypointPlatform>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 	<dependencies>
 		<dependency>
