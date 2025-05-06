@@ -4,9 +4,3 @@ http:
 log:
   message: "Response from simpleaddition"
  
-deployment:
-  app:
-    runtime: "4.9.0"
-  workers: "1"
-  workerType: "MICRO"
-    

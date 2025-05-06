@@ -16,10 +16,11 @@
 		<app.runtime>4.9.0</app.runtime>
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
 		   <env>Sandbox</env>
-        <deployment.region>us-east-2</deployment.region>
+      
         <deployment.workers>1</deployment.workers>
         <deployment.workerType>MICRO</deployment.workerType>
         <http.port>8081</http.port>
+        <muleVersion>4.9.0</muleVersion>
 	</properties>
 
 	<build>
@@ -38,12 +39,10 @@
 			        <cloudHub2Deployment>
 			            <applicationName>${project.artifactId}</applicationName>
 			            <environment>${env}</environment>
-			            <region>${deployment.region}</region>
 			            <workers>${deployment.workers}</workers>
 			            <workerType>${deployment.workerType}</workerType>
 			            <runtimeVersion>${app.runtime}</runtimeVersion>
 			            <objectStoreV2>true</objectStoreV2>
-			            
 			            <properties>
 			                <http.port>${http.port}</http.port>
 			                <mule.env>${env}</mule.env>
