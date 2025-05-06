@@ -26,28 +26,23 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.2.0</version>
-			</plugin>
-			<plugin>
 			    <groupId>org.mule.tools.maven</groupId>
 			    <artifactId>mule-maven-plugin</artifactId>
-			    <version>${mule.maven.plugin.version}</version>
+			    <version>4.4.0</version>
 			    <extensions>true</extensions>
 			    <configuration>
 			        <cloudHub2Deployment>
-			            <applicationName>${project.artifactId}</applicationName>
-			            <environment>${env}</environment>
-			            <workers>${deployment.workers}</workers>
-			            <workerType>${deployment.workerType}</workerType>
-			            <runtimeVersion>${app.runtime}</runtimeVersion>
+			            <applicationName>mule-playground</applicationName>
+			            <environment>Sandbox</environment>
+			            <region>us-east-2</region>
+			            <workers>1</workers>
+			            <workerType>MICRO</workerType>
+			            <runtimeVersion>4.9.0</runtimeVersion>
 			            <objectStoreV2>true</objectStoreV2>
 			            <properties>
-			                <http.port>${http.port}</http.port>
-			                <mule.env>${env}</mule.env>
+			                <http.port>8081</http.port>
+			                <mule.env>Sandbox</mule.env>
 			            </properties>
-			           
 			        </cloudHub2Deployment>
 			        <anypointPlatform>
 			            <username>${anypoint.username}</username>
@@ -55,7 +50,6 @@
 			        </anypointPlatform>
 			    </configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
